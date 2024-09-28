@@ -1,6 +1,6 @@
 # stripe-kit-hook
 
-Simple and elegant way to typesafely handle Stripe webhooks in SvelteKit.
+Simple and elegant abstraction to typesafely handle Stripe webhooks in SvelteKit.
 
 ```ts
 import { stripeWebhooks } from 'stripe-kit-hook';
