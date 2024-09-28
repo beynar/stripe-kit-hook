@@ -3,7 +3,7 @@
 Simple and elegant way to typesafely handle Stripe webhooks in SvelteKit.
 
 ```ts
-import { stripeWebhooks } from '$lib/index.js';
+import { stripeWebhooks } from 'stripe-kit-hook';
 import { sequence } from '@sveltejs/kit/hooks';
 import { PRIVATE_STRIPE_SECRET_KEY, PRIVATE_STRIPE_WEBHOOK_SECRET } from '$env/static/private';
 

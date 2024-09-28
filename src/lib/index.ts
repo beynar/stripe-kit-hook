@@ -53,7 +53,7 @@ export const stripeWebhooks =
 			}
 
 			const text = await event.request.text();
-
+			let isProcessed: boolean | null | undefined = false;
 			let payload: Stripe.Event;
 
 			try {
@@ -63,10 +63,11 @@ export const stripeWebhooks =
 			}
 
 			const idempotencyKey = payload.request?.idempotency_key;
-			let isProcessed: boolean | null | undefined = false;
+
 			if (idempotencyKey && idempotencyStore) {
 				isProcessed = await idempotencyStore.get({ event, key: idempotencyKey });
 			}
+
 			if (!isProcessed) {
 				try {
 					await handlers[payload.type]?.({
