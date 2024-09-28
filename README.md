@@ -15,9 +15,20 @@ export const handle = sequence(
 	stripeWebhooks({
 		secret: PRIVATE_STRIPE_SECRET_KEY,
 		webhookSecret: PRIVATE_STRIPE_WEBHOOK_SECRET,
+		// Use a fast KV store like Redis, Cloudflare KV, Upstash, etc.
+		idempotencyStore: {
+			get: async ({ key }) => {
+				// Return true if already processed
+			},
+			set: async ({ key, value }) => {
+				// Set the value to true when processed
+			}
+		},
 		handlers: {
-			'customer.created': ({ event, data }) => {
+			'customer.created': ({ event, data, success }) => {
 				console.log('customer.created', data);
+				// Call success when done in order to store the idempotency key and prevent duplicate processing
+				await success();
 			}
 		}
 	})
